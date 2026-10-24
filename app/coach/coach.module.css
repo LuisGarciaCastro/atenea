@@ -1,0 +1,1338 @@
+/* Coach: mismo sistema que el resto del hub. Solo añade los colores de las
+   disciplinas y estados (--c-*), pensados para leerse sobre blanco, y el
+   héroe negro con el lima del coach. */
+.circuito {
+  --c-swim: var(--cat-1);
+  --c-bike: var(--cat-3);
+  --c-run: var(--text);
+  --c-strength: var(--cat-4);
+
+  /* Nombres heredados que siguen usando las gráficas y los estados. */
+  --c-cyan: var(--cat-1);
+  --c-orange: var(--cat-3);
+  --c-violet: var(--cat-4);
+  --c-lime: var(--positive);
+  --c-amber: var(--amber);
+  --c-red: var(--danger);
+  --c-hoy: var(--tareas);
+
+  --c-fill: var(--fill);
+  --c-fill-hi: var(--fill-strong);
+  --c-dot-empty: var(--fill);
+  --c-text: var(--text);
+  --c-text-soft: var(--text-soft);
+  --c-text-muted: var(--text-muted);
+}
+
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* Cabecera de las vistas secundarias: «‹ Coach» y el título. */
+
+.vista,
+.transicion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.transicion {
+  animation: aparecer 160ms ease both;
+}
+.vistaHoy > :first-child {
+  animation: entrar 260ms var(--ease) both;
+}
+
+.tituloGrande {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-largetitle);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+}
+.vista > .tituloGrande {
+  font-size: var(--text-title2);
+  letter-spacing: -0.01em;
+}
+.vacio,
+.mano {
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  font-size: var(--text-sub);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+.actualizado {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.seccion {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-title2);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Enlaces a vistas secundarias: filas con chevron, agrupadas. */
+.enlaces {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.enlaceDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  gap: var(--space-3);
+}
+.enlaceDisplay::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-right: 3px;
+  border-top: 2px solid var(--text-faint);
+  border-right: 2px solid var(--text-faint);
+  transform: rotate(45deg);
+}
+.enlaces .enlaceDisplay {
+  padding: 0;
+  border-radius: 0;
+}
+.enlaces .enlaceDisplay + .enlaceDisplay {
+  border-top: 1px solid var(--rule);
+}
+
+/* Segmentado Hoy / Semana / Progreso (antes, barra inferior propia). */
+.barra {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 2px;
+  margin-top: calc(-1 * var(--space-1));
+  background: var(--fill-strong);
+  border-radius: 10px;
+}
+.pestana {
+  height: 34px;
+  border-radius: 8px;
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--text-soft);
+  transition:
+    background var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+.pestanaOn {
+  background: var(--card-bg);
+  box-shadow: var(--shadow-segment);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Hoy ── */
+
+/* Héroe: el entreno de hoy, en negro con el lima del coach. */
+.entrenoHoy,
+.descansoHoy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--coach-ink);
+  color: var(--text-on-color);
+}
+.entrenoHoyArriba {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+.entrenoHoyEtiqueta {
+  align-self: flex-start;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--coach);
+  color: var(--coach-ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+.entrenoHoyDuracion {
+  font-family: var(--font-display);
+  font-size: var(--text-title1);
+  font-weight: 700;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+}
+.entrenoHoyTitulo,
+.descansoTitulo {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+.entrenoHoyTexto,
+.descansoHoy > span:last-child {
+  font-size: var(--text-sub);
+  line-height: 1.4;
+  color: var(--coach-ink-soft);
+}
+.perfil {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 46px;
+  margin-top: var(--space-1);
+}
+.perfil i {
+  flex-basis: 0;
+  border-radius: 3px;
+  background: var(--coach);
+}
+.perfilEtiquetas {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--coach-ink-soft);
+}
+.completado,
+.verSesion {
+  margin-top: var(--space-1);
+  height: 50px;
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 14px;
+  font-size: var(--text-headline);
+  font-weight: 700;
+  text-align: left;
+  transition: transform var(--duration-fast) var(--ease);
+}
+.verSesion {
+  background: var(--coach);
+  color: var(--coach-ink);
+}
+.completado {
+  background: var(--coach-track);
+  color: var(--coach);
+}
+.verSesion:active,
+button.completado:active {
+  transform: scale(0.98);
+}
+
+/* Esta semana: tres cifras */
+.resumenSemana {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.resumenTitulo {
+  font-family: var(--font-display);
+  font-size: var(--text-title2);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.totales3,
+.totales {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.totales {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.total {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border-top: 0;
+  position: relative;
+  min-width: 0;
+}
+/* La seña de la disciplina: una raya corta arriba (el color llega por border-top-color). */
+.total::before {
+  content: "";
+  width: 28px;
+  height: 4px;
+  border-radius: 2px;
+  border-top: 4px solid;
+  border-top-color: inherit;
+  margin-bottom: 2px;
+  box-sizing: border-box;
+}
+.totalNombre {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.totalCifra {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.totalCifra small {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+.totalDe {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Racha */
+.racha {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.rachaCifra {
+  font-family: var(--font-display);
+  font-size: var(--text-largetitle);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+}
+.rachaEtiqueta {
+  grid-column: 1;
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+.rachaFranja {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: flex;
+  gap: 3px;
+}
+.rachaFranja i {
+  flex: 1;
+  height: 28px;
+  border-radius: 5px;
+}
+
+/* Frase del día */
+.frase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.fraseEtiqueta {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-on-color);
+}
+.fraseTexto {
+  font-family: var(--font-display);
+  font-size: var(--text-title2);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Ficha de la sesión (hoja) */
+.sesionFicha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  border-left: 0;
+}
+.sesionFichaTitulo {
+  font-family: var(--font-display);
+  font-size: var(--text-title2);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.estadoSesion {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--fill);
+  font-size: 12px;
+  font-weight: 600;
+}
+.objetivo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+}
+.objetivo b {
+  font-size: var(--text-headline);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.bloques {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-sub);
+  line-height: 1.45;
+}
+.bloques li::marker {
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* ── Semana ── */
+.filasSemana {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.semanaFila {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 30px;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-left: 0;
+  text-align: left;
+  position: relative;
+}
+.semanaFila + .semanaFila {
+  border-top: 1px solid var(--rule);
+}
+/* El color de la disciplina llega por border-left-color: se pinta como punto. */
+.semanaFila::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  width: 4px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 2px;
+  border-left: 4px solid;
+  border-left-color: inherit;
+}
+button.semanaFila:active {
+  opacity: 0.7;
+}
+.semanaHoy .semanaDia b {
+  color: var(--c-hoy);
+}
+.semanaDia {
+  display: flex;
+  flex-direction: column;
+}
+.semanaDia b {
+  font-size: var(--text-headline);
+  font-weight: 700;
+}
+.semanaDia small,
+.semanaTexto small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.semanaTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.semanaTexto b {
+  font-size: var(--text-sub);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.semanaTexto small {
+  font-size: var(--text-caption);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.semanaMarca {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-on-color);
+}
+
+/* ── Progreso ── */
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  min-width: 0;
+}
+.tarjetaCabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+.tarjetaCabecera > span:not(.tendencia):not(.tarjetaEtiqueta) {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.tarjetaEtiqueta {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.tendencia {
+  font-family: var(--font-display);
+  font-size: var(--text-title2);
+  font-weight: 700;
+  letter-spacing: var(--tracking-number);
+  color: var(--positive);
+  white-space: nowrap;
+}
+.volumen {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  height: 170px;
+}
+.volumenCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+}
+.volumenHoras {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-muted);
+}
+.volumenPila {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.volumenPila i {
+  flex-basis: 0;
+}
+.volumenFecha {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.kms {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.km {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 14px;
+  border-radius: 18px;
+  color: var(--text-on-color);
+}
+.kmNombre {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.kmCifra {
+  font-family: var(--font-display);
+  font-size: var(--text-title1);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+}
+.kmSub {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.ultimo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-row);
+  background: var(--card-bg);
+  text-align: left;
+}
+.ultimo:active {
+  opacity: 0.7;
+}
+.ultimoFranja,
+.franja {
+  width: 4px;
+  align-self: stretch;
+  flex: none;
+  border-radius: 2px;
+}
+.ultimoTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ultimoTexto b {
+  font-size: var(--text-sub);
+  font-weight: 600;
+}
+.ultimoTexto small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.ultimoMin {
+  font-size: var(--text-sub);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Contenido de las hojas del coach (la hoja en sí es la común). */
+.contenidoHoja {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── Vistas secundarias (recuperación, entrenos, forma, cuaderno) ── */
+.h2 {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-title2);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.h3 {
+  margin: 0;
+  font-size: var(--text-headline);
+  font-weight: 600;
+}
+.texto {
+  margin: 0;
+  font-size: var(--text-sub);
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+.nota {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.bloque,
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.bloque {
+  gap: var(--space-3);
+}
+.datos,
+.dosColumnas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  min-width: 0;
+}
+.datoTitulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.datoValor {
+  font-family: var(--font-display);
+  font-size: var(--text-title1);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.datoValor small {
+  font-size: var(--text-sub);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+.datoSub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.cifra {
+  font-family: var(--font-display);
+  font-size: var(--text-title1);
+  font-weight: 700;
+  letter-spacing: var(--tracking-number);
+}
+.cifra small {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+.fila {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-row);
+  background: var(--card-bg);
+  text-align: left;
+}
+button.fila:active {
+  opacity: 0.7;
+}
+.badge {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-on-color);
+  font-size: var(--text-headline);
+  font-weight: 700;
+}
+.filaTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.filaTexto b {
+  font-size: var(--text-sub);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.filaTexto span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.filaDerecha {
+  font-size: var(--text-sub);
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.destacado {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.destacado b {
+  font-size: var(--text-sub);
+  font-weight: 600;
+}
+.destacado p {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sub);
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+/* Gráficas */
+.barras {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  height: 150px;
+}
+.barraCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+.barraValor,
+.barraEtiqueta {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-soft);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.barraEtiqueta {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.barraPista {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.barraPista > i {
+  display: block;
+  width: 100%;
+  border-radius: 4px 4px 2px 2px;
+  background: var(--fill);
+}
+.pila {
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.pila i {
+  display: block;
+  flex-basis: 0;
+}
+.lineas {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+.lineaCero {
+  stroke: var(--border);
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+}
+.ejeX {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.leyenda i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.reparto {
+  display: flex;
+  gap: 2px;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.reparto i {
+  display: block;
+  flex-basis: 0;
+}
+.zonaFila {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 64px;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+.zonaFila span:last-child {
+  text-align: right;
+  font-size: var(--text-sub);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.zonaPista {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--fill);
+  overflow: hidden;
+}
+.zonaPista i {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+}
+
+/* Datos de un entreno: lista agrupada */
+.hechos {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.hechos > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  font-size: var(--text-sub);
+}
+.hechos > div + div {
+  border-top: 1px solid var(--rule);
+}
+.hechos span {
+  color: var(--text-muted);
+}
+.hechos b {
+  text-align: right;
+  font-weight: 600;
+}
+.hechos small {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.tablaCaja {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-caption);
+}
+.tabla th,
+.tabla td {
+  padding: 10px 12px;
+  text-align: right;
+  white-space: nowrap;
+}
+.tabla th:first-child,
+.tabla td:first-child {
+  text-align: left;
+}
+.tabla th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.tabla td {
+  border-top: 1px solid var(--rule);
+  font-size: var(--text-sub);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.descanso td {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Plan: sesiones desplegables */
+.sesionPlan > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  list-style: none;
+}
+.sesionPlan > summary::-webkit-details-marker {
+  display: none;
+}
+.sesionPlan[open] > summary {
+  margin-bottom: var(--space-2);
+}
+.lista > .sesionPlan {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-row);
+  background: var(--card-bg);
+}
+.punto {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+}
+.sesionTitulo {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-sub);
+  font-weight: 600;
+}
+.estadoTexto {
+  flex: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.detalle {
+  margin: 0 0 var(--space-2);
+  padding-left: 18px;
+  font-size: var(--text-sub);
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+.registro {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: var(--text-sub);
+  line-height: 1.4;
+}
+.marca {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-on-color);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .transicion,
+  .vistaHoy > :first-child {
+    animation: none;
+  }
+}
+
+/* ── Navegación por semanas (Semana) ── */
+.selectorSemana {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.flechaSemana {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  transition: background var(--duration-fast) var(--ease);
+}
+.flechaSemana:hover {
+  background: var(--bg);
+}
+.flechaSemana:disabled {
+  color: var(--text-faint);
+  opacity: 0.45;
+}
+.flechaSemana svg {
+  width: 18px;
+  height: 18px;
+}
+.semanaActual {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+.semanaActual b {
+  font-size: var(--text-headline);
+  font-weight: 700;
+}
+.semanaActual small {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+/* Enfoque de la semana: el titular a la vista, el porqué al tocar. */
+.enfoque {
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+.enfoque > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 52px;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sub);
+  cursor: pointer;
+  list-style: none;
+}
+.enfoque > summary::-webkit-details-marker {
+  display: none;
+}
+.enfoqueMas {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.enfoqueMas::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--duration-fast) var(--ease);
+}
+.enfoque[open] .enfoqueMas::after {
+  margin-top: 3px;
+  transform: rotate(-135deg);
+}
+.enfoque p {
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-4);
+  font-size: var(--text-sub);
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
+/* ── Mañana y recuperación (Hoy) ── */
+.manana,
+.recuperacion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  text-align: left;
+  transition: opacity var(--duration-fast) var(--ease);
+}
+.manana:active:not(:disabled),
+.recuperacion:active {
+  opacity: 0.7;
+}
+.manana:disabled {
+  cursor: default;
+}
+.mananaEtiqueta {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--fill);
+  font-size: 12px;
+  font-weight: 700;
+}
+.mananaTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mananaTexto b {
+  font-size: var(--text-sub);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mananaTexto small {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+.chevron {
+  display: flex;
+  flex: none;
+  color: var(--text-faint);
+}
+.chevron svg {
+  width: 7px;
+  height: 12px;
+}
+.recuperacion {
+  flex-direction: column;
+  align-items: stretch;
+}
+.recuperacionCabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recuperacionDatos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+.recuperacionDatos > span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.recuperacionDatos b {
+  font-family: var(--font-display);
+  font-size: var(--text-title3);
+  font-weight: 700;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+}
+.recuperacionDatos small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Enlaces con explicación (Progreso → Más a fondo). */
+.enlaceTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) 0;
+}
+.enlaceTexto b {
+  font-size: var(--text-sub);
+  font-weight: 600;
+}
+.enlaceTexto small {
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ── iPad: dos columnas ── */
+@container pagina (min-width: 720px) {
+  .vistaHoy {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-areas:
+      "hero recuperacion"
+      "hero semana"
+      "manana racha"
+      "frase frase";
+    gap: var(--space-4);
+    align-items: start;
+  }
+  .vistaHoy > .entrenoHoy,
+  .vistaHoy > .descansoHoy {
+    grid-area: hero;
+  }
+  .barra {
+    max-width: 440px;
+  }
+  .vistaHoy > .manana {
+    grid-area: manana;
+  }
+  .vistaHoy > .recuperacion {
+    grid-area: recuperacion;
+  }
+  .vistaHoy > .resumenSemana {
+    grid-area: semana;
+  }
+  .vistaHoy > .racha {
+    grid-area: racha;
+  }
+  .vistaHoy > .frase {
+    grid-area: frase;
+  }
+
+  .totales {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .filasSemana {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-6);
+  }
+  .filasSemana .semanaFila + .semanaFila {
+    border-top: 0;
+  }
+  .filasSemana .semanaFila:nth-child(n + 3) {
+    border-top: 1px solid var(--rule);
+  }
+  .datos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

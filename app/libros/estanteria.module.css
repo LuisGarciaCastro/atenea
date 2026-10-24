@@ -1,0 +1,337 @@
+.estanteria {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* Segmentado (como el de iOS) */
+.segmentado {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 2px;
+  background: var(--fill-strong);
+  border-radius: 10px;
+}
+
+.segmento {
+  height: 34px;
+  border-radius: 8px;
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--text-soft);
+  white-space: nowrap;
+  transition:
+    background var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+.segmentoOn {
+  background: var(--card-bg);
+  box-shadow: var(--shadow-segment);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Portadas */
+.portada {
+  flex: none;
+  position: relative;
+  width: 40px;
+  height: 60px;
+  border-radius: 3px 5px 5px 3px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--text-on-color);
+  box-shadow: var(--shadow-spine);
+}
+.portada img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.portadaGrande {
+  width: 132px;
+  height: 196px;
+  padding: 14px 12px;
+  border-radius: 6px 10px 10px 6px;
+  box-shadow: var(--shadow-media), var(--shadow-spine);
+}
+.portadaTitulo {
+  font-family: var(--font-read);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.portadaAutor {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Leyendo: tarjeta protagonista */
+.leyendo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--space-5) var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--card-bg);
+}
+.leyendoTexto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
+}
+.leyendoTitulo {
+  margin: 0;
+  font-family: var(--font-read);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+.leyendoProgreso {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.leyendoPie {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.leyendoPie b {
+  color: var(--text);
+  font-weight: 600;
+}
+.actualizar {
+  width: 100%;
+  height: 50px;
+  border-radius: 14px;
+  background: var(--text);
+  color: var(--text-on-color);
+  font-size: var(--text-headline);
+  font-weight: 600;
+  transition: background var(--duration-fast) var(--ease);
+}
+.actualizar:hover,
+.actualizar:active {
+  background: var(--ink-hover);
+}
+
+/* Lista agrupada */
+.lista {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-4);
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+}
+
+.fila {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: var(--space-3) 0;
+  text-align: left;
+  transition: opacity var(--duration-fast) var(--ease);
+}
+.fila + .fila {
+  border-top: 1px solid var(--rule);
+}
+.fila:active {
+  opacity: 0.7;
+}
+
+.filaTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.filaTitulo {
+  font-family: var(--font-read);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.filaAutor {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.progreso {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--fill);
+  overflow: hidden;
+}
+.progreso i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--libros);
+  transition: width var(--duration-grafica) var(--ease);
+}
+
+.estrellas {
+  font-size: var(--text-caption);
+  letter-spacing: 1px;
+  color: var(--libros);
+  white-space: nowrap;
+}
+
+.chevron {
+  display: flex;
+  flex: none;
+  color: var(--text-faint);
+}
+.chevron svg {
+  width: 7px;
+  height: 12px;
+}
+
+/* Ficha del libro */
+.fichaPortada {
+  width: 72px;
+  height: 108px;
+  object-fit: cover;
+  border-radius: 4px 6px 6px 4px;
+  box-shadow: var(--shadow-media);
+}
+
+.fichaProgreso {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.fichaPct {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+}
+
+.fichaPagina {
+  font-size: var(--text-sub);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.deslizador {
+  width: 100%;
+  accent-color: var(--libros);
+}
+
+.saltos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.terminar,
+.empezar {
+  background: var(--text);
+}
+.terminar:active,
+.empezar:active {
+  background: var(--ink-hover);
+}
+
+.fijarPaginas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.valorar {
+  display: flex;
+  gap: 8px;
+}
+
+.estrella {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 22px;
+  background: var(--fill);
+  color: var(--text-faint);
+  transition:
+    background var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
+}
+.estrellaOn {
+  background: var(--libros-soft);
+  color: var(--libros);
+}
+
+@container pagina (min-width: 720px) {
+  .segmentado {
+    max-width: 440px;
+  }
+}
+
+.leyendoLista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* iPad: la tarjeta de lectura en horizontal (portada a la izquierda) y la lista en dos columnas. */
+@container pagina (min-width: 720px) {
+  .leyendoLista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr));
+  }
+  .leyendo {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--space-6);
+    row-gap: var(--space-3);
+    align-items: start;
+    padding: var(--space-6);
+  }
+  .leyendo > .portada {
+    grid-row: 1 / span 3;
+  }
+  .leyendoTexto {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .leyendo > .actualizar {
+    align-self: end;
+  }
+  .lista {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-6);
+  }
+  .lista .fila + .fila {
+    border-top: 0;
+  }
+  .lista .fila:nth-child(n + 3) {
+    border-top: 1px solid var(--rule);
+  }
+}

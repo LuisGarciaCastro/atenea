@@ -1,0 +1,334 @@
+/* Chat «Pregúntame»: botón flotante y panel. Se monta en <body> con un portal,
+   así que siempre usa los tokens globales. */
+
+.capa {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--scrim);
+  animation: aparecer var(--duration-base) var(--ease) both;
+}
+.panel {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  height: 90dvh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  overflow: hidden;
+  animation: subir var(--duration-slow) var(--ease) both;
+}
+
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px var(--page-x) 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card-bg);
+}
+.titulos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.kicker {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.titulo {
+  font-family: var(--font-display);
+  font-size: var(--text-title1);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: var(--tracking-tight);
+}
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.accion {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--fill);
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+.accion:disabled {
+  opacity: 0.5;
+}
+.cerrar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--fill);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cuerpo {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px var(--page-x);
+}
+.nota {
+  font-size: var(--text-sub);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+.vacio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sugerencia {
+  align-self: flex-start;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: var(--radius-row);
+  background: var(--card-bg);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.usuario {
+  align-self: flex-end;
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 18px 18px 6px 18px;
+  background: var(--text);
+  color: var(--text-on-color);
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.asistente {
+  align-self: flex-start;
+  max-width: 92%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 18px 18px 18px 6px;
+  background: var(--card-bg);
+}
+.error {
+  color: var(--danger);
+}
+.agentes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.agente {
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-on-color);
+}
+.finanzas {
+  background: var(--hucha);
+}
+.libros {
+  background: var(--libros);
+}
+.deportes {
+  background: var(--coach-ink);
+}
+.accionHecha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--positive-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+.accionDeshecha {
+  background: var(--fill);
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.accionTexto {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.deshacer {
+  flex: none;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+}
+.deshacer:disabled {
+  opacity: 0.5;
+}
+.pensando {
+  font-size: var(--text-sub);
+  font-weight: 500;
+  color: var(--text-muted);
+  animation: pulso 1.1s ease-in-out infinite alternate;
+}
+.respuesta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.respuesta p,
+.respuesta ul {
+  margin: 0;
+}
+.respuesta ul {
+  padding-left: 18px;
+}
+.respuesta strong {
+  font-weight: 700;
+}
+
+.conversacion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-bg);
+  border-radius: var(--radius-row);
+}
+.conversacionAbrir {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  text-align: left;
+}
+.conversacionAbrir b {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.conversacionAbrir small {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.borrar {
+  width: 34px;
+  height: 34px;
+  margin-right: 8px;
+  flex: none;
+  border-radius: 50%;
+  color: var(--text-faint);
+}
+.borrar:hover,
+.borrar:focus-visible {
+  background: var(--fill);
+  color: var(--danger);
+}
+
+.entrada {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px var(--page-x) calc(14px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--border);
+  background: var(--card-bg);
+}
+.campo {
+  flex: 1;
+  min-width: 0;
+  max-height: 140px;
+  padding: 12px 16px;
+  border: 0;
+  box-shadow: inset 0 0 0 1px var(--border);
+  border-radius: 22px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.35;
+  resize: none;
+  field-sizing: content;
+  outline: none;
+}
+.campo:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--tareas);
+}
+.campo::placeholder {
+  color: var(--text-faint);
+}
+.enviar {
+  width: 46px;
+  height: 46px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--text-on-color);
+  font-size: 20px;
+  font-weight: 700;
+}
+.enviar:disabled {
+  opacity: 0.4;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes subir {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes pulso {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* iPad: el chat es una ventana centrada, no una hoja desde abajo. */
+@media (min-width: 768px) {
+  .capa {
+    justify-content: center;
+    padding: var(--space-8);
+  }
+  .panel {
+    height: min(760px, 88dvh);
+    border-radius: var(--radius-sheet);
+    box-shadow: var(--shadow-media);
+    animation-name: aparecer;
+  }
+}

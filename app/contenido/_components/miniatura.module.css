@@ -1,0 +1,92 @@
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-row);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 75% 30%, var(--c1, var(--cat-4)), transparent 55%),
+    radial-gradient(circle at 20% 80%, var(--c2, var(--cat-1)), transparent 55%), var(--text);
+}
+.thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--on-media-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--on-media-glass-border);
+  z-index: 1;
+}
+.play svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+  fill: var(--text-on-color);
+}
+.dur {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: var(--on-media-veil);
+  color: var(--text-on-color);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+  z-index: 1;
+}
+.chan {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  color: var(--on-color-soft);
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.timeline {
+  position: relative;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--fill);
+  margin: 22px 0 8px;
+}
+.dot {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ideas);
+  border: 2.5px solid var(--card-bg);
+  transform: translate(-50%, -50%) scale(0);
+  transition:
+    transform var(--duration-grafica) var(--ease),
+    width var(--duration-base) var(--ease),
+    height var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
+}
+.dotIn {
+  transform: translate(-50%, -50%) scale(1);
+}
+.dotOn {
+  width: 18px;
+  height: 18px;
+  box-shadow: 0 0 0 5px var(--ideas-soft);
+}

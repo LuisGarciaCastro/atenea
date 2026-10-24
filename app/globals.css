@@ -1,0 +1,210 @@
+/*
+ * Sistema de diseño del hub — tokens. Tema claro único (issue #99).
+ *
+ * Base limpia tipo Apple (fondo gris, tarjetas blancas, fuente del sistema),
+ * con cifras grandes estilo deportivo/finanzas y una serif solo para leer.
+ * Cada módulo tiene UNA seña de color (iconos, etiquetas, progreso); la
+ * acción principal es siempre tinta. Los componentes usan siempre var(--…).
+ */
+:root {
+  color-scheme: light;
+
+  /* Superficies y texto */
+  --bg: #f2f2f4;
+  --card-bg: #ffffff;
+  --fill: #e9e9ec;
+  --fill-strong: #e2e2e6;
+  --border: #e4e4e8;
+  --rule: #efeff2;
+  --text: #111113;
+  --text-soft: #3a3a3e;
+  --text-muted: #6b6b70;
+  /* 3:1 sobre --bg, el mínimo para iconos y controles (WCAG 1.4.11). */
+  --text-faint: #88888d;
+  --text-on-color: #ffffff;
+
+  /* Acción: tinta. Enlaces, foco y botón principal. */
+  --accent: #111113;
+  --accent-strong: #000000;
+  --ink-hover: #2b2b30;
+
+  /* Estados */
+  --danger: #b3261e;
+  --danger-soft: #fce8e6;
+  --positive: #0f7b5a;
+  --positive-soft: #e3f2ec;
+  --warning: #9a5b00;
+  --warning-soft: #fff1db;
+  /* Ámbar legible como fondo bajo texto blanco (avisos del coach). */
+  --amber: #b06f00;
+
+  /* Seña de cada módulo (texto sobre blanco ≥ 4.5:1 salvo --coach, que es solo fondo). */
+  --hucha: #0f7b5a;
+  --hucha-soft: #e3f2ec;
+  --libros: #c2410c;
+  --libros-soft: #fbede5;
+  --ideas: #5b4bdb;
+  --ideas-soft: #f0eefc;
+  --tareas: #0a66d6;
+  --tareas-soft: #e6f0fb;
+  --coach: #d7ff3d;
+  --coach-ink: #111113;
+  --coach-ink-soft: #b5b5ba;
+  --coach-track: #3a3a3e;
+
+  /* Categorías (gastos, lomos, temas). Orden fijo; a partir de la 7.ª se repite. */
+  --cat-1: #0a66d6;
+  --cat-2: #0f9d6e;
+  --cat-3: #e8590c;
+  --cat-4: #7c5cfa;
+  --cat-5: #d6336c;
+  --cat-6: #64748b;
+
+  /* Translúcidos sobre tinta o color (héroe negro, barras) */
+  --on-color-soft: rgba(255, 255, 255, 0.85);
+  /* Sobre miniaturas de vídeo: cristal claro para el play y velo oscuro para la duración. */
+  --on-media-glass: rgba(255, 255, 255, 0.22);
+  --on-media-glass-border: rgba(255, 255, 255, 0.3);
+  --on-media-veil: rgba(0, 0, 0, 0.6);
+
+  /* Radios: 8 / 12 / 16 / 20 / 24 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-row: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-sheet: 28px;
+  --radius-pill: 999px;
+
+  /* Espaciado (rejilla de 4 px) */
+  --page-x: 20px;
+  /* Ancho de la barra lateral del iPad (desde 768 px). */
+  --lateral-w: 232px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+
+  /* Escala tipográfica (inspirada en la de iOS) */
+  --text-number: 56px;
+  --text-largetitle: 34px;
+  --text-title1: 28px;
+  --text-title2: 22px;
+  --text-title3: 20px;
+  --text-headline: 17px;
+  --text-body: 17px;
+  --text-sub: 15px;
+  --text-caption: 13px;
+  --text-micro: 11px;
+  --tracking-tight: -0.02em;
+  --tracking-number: -0.035em;
+  --tracking-caps: 0.08em;
+
+  --shadow-card: 0 1px 2px rgba(17, 17, 19, 0.04);
+  --shadow-nav: 0 -1px 0 var(--border);
+  --shadow-toast: 0 6px 16px rgba(17, 17, 19, 0.18);
+  --shadow-media: 0 10px 24px rgba(17, 17, 19, 0.16);
+  --shadow-segment: 0 1px 3px rgba(17, 17, 19, 0.12);
+  --scrim: rgba(17, 17, 19, 0.4);
+  /* Lomo de las portadas sin imagen. */
+  --shadow-spine: inset 3px 0 0 rgba(0, 0, 0, 0.12);
+  /* Barra inferior translúcida. */
+  --nav-bg: rgba(255, 255, 255, 0.86);
+
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-fast: 120ms;
+  --duration-base: 220ms;
+  --duration-slow: 380ms;
+  /* Barras y progresos que crecen al cargar. */
+  --duration-grafica: 700ms;
+
+  /* Sistema (SF Pro en Mac/iPhone) para todo; Newsreader solo para leer. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", system-ui, sans-serif;
+  --font-read: var(--font-newsreader), "New York", Georgia, serif;
+}
+
+@media (min-width: 1100px) {
+  :root {
+    --lateral-w: 264px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background-color: var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where(button) {
+  font-family: inherit;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--tareas);
+  outline-offset: 2px;
+}
+/* Los diálogos reciben el foco al abrirse solo para anunciarse; no hace falta pintarlo. */
+[role="dialog"]:focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

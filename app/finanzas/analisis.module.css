@@ -1,0 +1,316 @@
+.finTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.donutWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.donutSvg {
+  width: 180px;
+  height: 180px;
+}
+.donutTotalLabel {
+  font-size: 11px;
+  fill: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.donutTotalValor {
+  font-size: 20px;
+  fill: var(--text);
+  font-weight: 700;
+}
+.leyenda,
+.listaLimpia {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.leyendaItem + .leyendaItem {
+  border-top: 0.5px solid var(--border);
+}
+.leyendaBoton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 2px;
+  text-align: left;
+  border-radius: 10px;
+  transition: background var(--duration-base) var(--ease);
+}
+.leyendaBotonActivo {
+  background: var(--fill);
+}
+.leyendaSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+.leyendaLabel {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 0;
+}
+.leyendaValor {
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.desglose {
+  margin-top: 12px;
+  background: var(--fill);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.desgloseCabecera {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.desgloseTitulo {
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+}
+.desgloseTotal {
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.desgloseCerrar {
+  color: var(--text-muted);
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.desgloseLista {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.desgloseItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 13px;
+}
+.desgloseItem + .desgloseItem {
+  border-top: 0.5px solid var(--border);
+}
+.desgloseImporte {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+.evolucionScroll {
+  overflow-x: auto;
+  margin-top: 14px;
+  scrollbar-width: none;
+}
+.evolucionScroll::-webkit-scrollbar {
+  display: none;
+}
+.rangoPersonalizado {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.rangoPersonalizado label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.rangoPersonalizado input {
+  border: 0;
+  background: var(--fill);
+  border-radius: 8px;
+  padding: 7px 8px;
+  font: inherit;
+  color: var(--text);
+}
+
+.comparativaItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+}
+.comparativaItem + .comparativaItem {
+  border-top: 0.5px solid var(--border);
+}
+.comparativaSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+.comparativaCategoria {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 0;
+}
+.comparativaValores {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.comparativaActual {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.comparativaVariacion {
+  font-size: 12px;
+  font-weight: 600;
+  flex: none;
+}
+
+.topItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+}
+.topItem + .topItem {
+  border-top: 0.5px solid var(--border);
+}
+.topPosicion {
+  width: 20px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex: none;
+}
+.topNombre {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 0;
+}
+.topVeces {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.topTotal {
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.filtrosFila {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.filtrosFila select,
+.filtrosFila input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: var(--fill);
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 14px;
+  color: var(--text);
+}
+.filtroFecha {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  flex: 1;
+}
+.filtroFecha input {
+  border: 0;
+  background: var(--fill);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--text);
+}
+.filtrosLimpiar {
+  margin-top: 10px;
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.gastoEdicion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--fill);
+}
+.gastoEdicion select,
+.gastoEdicion input {
+  flex: 1;
+  min-width: 110px;
+  border: 0;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--text);
+}
+.gastoEdicion button {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--card-bg);
+}
+.gastoGuardar {
+  color: var(--text-on-color) !important;
+  background: var(--accent) !important;
+}
+.gastoCancelDel {
+  color: var(--accent-strong);
+}
+
+.exportarBoton {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.exportarBoton:disabled {
+  color: var(--text-muted);
+}
+
+.gastosCabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 26px 4px 12px;
+}

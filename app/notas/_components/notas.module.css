@@ -1,0 +1,104 @@
+/* Notas del usuario (ideas, cosas por investigar y artículos). */
+.vista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Fila con casilla a la izquierda y el resto como botón. */
+.fila {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 60px;
+}
+.fila + .fila {
+  border-top: 1px solid var(--rule);
+}
+
+.casilla {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: calc(-1 * var(--space-2));
+  color: var(--text-on-color);
+}
+.casilla span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 2px var(--text-faint);
+}
+.casilla svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+}
+.casillaHecha span {
+  background: var(--ideas);
+  box-shadow: none;
+}
+.casillaHecha svg {
+  opacity: 1;
+}
+
+.abrir {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  text-align: left;
+  color: inherit;
+}
+.abrir:active {
+  opacity: 0.7;
+}
+
+.hecha {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.verHechas {
+  align-self: flex-start;
+  min-height: 44px;
+  font-size: var(--text-sub);
+  font-weight: 600;
+  color: var(--ideas);
+}
+
+/* Formulario de la hoja */
+.texto {
+  min-height: 140px;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  box-shadow: inset 0 0 0 1px var(--border);
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: 1.45;
+  color: var(--text);
+  resize: vertical;
+}
+.texto:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--tareas);
+}
+.texto::placeholder {
+  color: var(--text-faint);
+}
+
+.acciones {
+  display: flex;
+  gap: var(--space-3);
+}
+.acciones > * {
+  flex: 1;
+}

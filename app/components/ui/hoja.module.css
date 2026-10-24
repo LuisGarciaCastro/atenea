@@ -1,0 +1,124 @@
+.capa {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--scrim);
+  animation: aparecer var(--duration-base) var(--ease) both;
+}
+
+.hoja {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  max-height: 90%;
+  overflow-y: auto;
+  background: var(--bg);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  padding: 8px var(--page-x) calc(28px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  animation: subir var(--duration-slow) var(--ease) both;
+}
+
+.asa {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--fill-strong);
+  align-self: center;
+  flex: none;
+}
+
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.titulos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.kicker {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.titulo {
+  font-family: var(--font-display);
+  font-size: var(--text-title1);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: var(--tracking-tight);
+  overflow-wrap: anywhere;
+}
+
+.cerrar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--fill-strong);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.cerrar svg {
+  width: 14px;
+  height: 14px;
+}
+/* Área táctil de 44 px sin agrandar el círculo. */
+.cerrar {
+  position: relative;
+}
+.cerrar::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes subir {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+/* iPad: las hojas son ventanas centradas (como las «form sheets» de iPadOS). */
+@media (min-width: 768px) {
+  .capa {
+    justify-content: center;
+    padding: var(--space-8);
+  }
+  .hoja {
+    max-height: 86dvh;
+    border-radius: var(--radius-sheet);
+    padding-top: var(--space-5);
+    box-shadow: var(--shadow-media);
+    animation-name: aparecer;
+  }
+  .asa {
+    display: none;
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "ejemplo": "Este data.json es un EJEMPLO INVENTADO que solo enseña el esquema. Es la primera ejecución: no copies nada de aquí (ni días, ni entrenos, ni plan, ni cuaderno). Construye el data.json con los datos reales de .coach/, empieza el cuaderno vacío, apunta en cuaderno.huecos los campos del perfil (sección 1 de la skill) que falten y no incluyas esta clave «ejemplo» en tu salida.",
+  "generated": "2026-01-05T10:00:00+01:00",
+  "generatedLabel": "lunes 5 de enero de 2026, 10:00",
+  "days": [
+    {
+      "date": "2026-01-05",
+      "recovery": 60,
+      "hrv": 70.0,
+      "rhr": 55,
+      "spo2": 96.0,
+      "strain": 10.0,
+      "sleep": {
+        "deep": 90,
+        "rem": 100,
+        "light": 200,
+        "awake": 30,
+        "need": 8.0,
+        "perf": 85
+      }
+    }
+  ],
+  "workouts": [
+    {
+      "id": "w-20260104-1000",
+      "start": "2026-01-04T10:00",
+      "sport": "running",
+      "title": "Carrera suave",
+      "min": 40,
+      "dist": "7,0 km",
+      "pace": "5:43 /km",
+      "hr": [140, 155],
+      "summary": "40' en Z2 a 5:43 /km",
+      "src": "WHOOP + Garmin",
+      "facts": [
+        ["Calorías", "420 kcal"],
+        ["FC media / máx", "140 / 155 lpm"],
+        ["Esfuerzo percibido", "4/10"]
+      ],
+      "zones": [2, 30, 8, 0, 0],
+      "zoneSrc": "Garmin",
+      "table": {
+        "kind": "laps",
+        "cols": ["Km", "Tiempo", "Ritmo", "FC"],
+        "barCol": 3,
+        "rows": [
+          ["1", "5:50", "5:50 /km", 135],
+          ["2", "5:40", "5:40 /km", 141]
+        ]
+      },
+      "note": "Ejemplo de nota del coach sobre la sesión."
+    }
+  ],
+  "weekTotals": {
+    "count": 1,
+    "label": "40 min · 1 carrera"
+  },
+  "zonesWeek": [0, 2, 30, 8, 0, 0],
+  "today": {
+    "dateLabel": "Hoy, lunes 5",
+    "headline": "Titular del veredicto de hoy",
+    "sub": "Por qué: recovery, HRV y sueño de hoy.",
+    "session": "La sesión de hoy, con su detalle."
+  },
+  "highlights": [
+    {
+      "icon": "heart",
+      "tone": "green",
+      "title": "Titular de un highlight",
+      "text": "Explicación con cifras."
+    }
+  ],
+  "swim": {
+    "lead": "Resumen de la natación de la semana.",
+    "stats": [["Distancia", "0", "m", "sin sesiones esta semana"]]
+  },
+  "forma": {
+    "stats": [["VO2max carrera", "50,0", "", "Garmin", "red"]],
+    "predictions": [["10K", "50:00", "5:00 /km"]],
+    "note": "Lectura de las métricas de rendimiento."
+  },
+  "load": {
+    "hoy": {
+      "ctl": 10.0,
+      "atl": 12.0,
+      "tsb": -2.0,
+      "ramp": 1.0,
+      "acwr": 1.1,
+      "monotonia": 1.0
+    },
+    "serie": [
+      {
+        "date": "2026-01-04",
+        "load": 60,
+        "ctl": 10.0,
+        "atl": 12.0,
+        "tsb": -2.0
+      }
+    ],
+    "distribucion": {
+      "bajo": 80,
+      "moderado": 15,
+      "alto": 5,
+      "minutos": 40
+    },
+    "semanas": [["29 dic", 0, 0, 40, 0]],
+    "lectura": "Lectura de la carga de los últimos 7 días.",
+    "alertas": [],
+    "huecos": []
+  },
+  "plan": {
+    "updated": "lunes 5 ene, 10:00",
+    "note": "Cómo se revisa el plan.",
+    "weeks": [
+      {
+        "label": "Semana 1",
+        "range": "5 – 11 ene",
+        "phase": "Adaptación",
+        "focus": "Foco de la semana.",
+        "target": "3 h",
+        "days": [
+          {
+            "date": "2026-01-05",
+            "sessions": [
+              {
+                "sport": "swimming",
+                "title": "Natación técnica",
+                "min": 40,
+                "detail": ["300 suave", "4×50 técnica", "100 suave"],
+                "target": "Objetivo de la sesión",
+                "status": "planned",
+                "note": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "cuaderno": {
+    "actualizado": "2026-01-05",
+    "tests": [],
+    "patrones": [],
+    "habito": {
+      "nombre": "",
+      "objetivo": "",
+      "registro": []
+    },
+    "sensaciones": [],
+    "decisiones": [],
+    "mensual": [],
+    "proponerSkill": [],
+    "huecos": []
+  }
+}

@@ -1,0 +1,19 @@
+name: Avisar del fallo por Telegram
+description: Manda a Telegram el nombre del workflow que ha fallado y el enlace a la ejecución.
+inputs:
+  telegram_bot_token:
+    required: true
+  telegram_chat_id:
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        TOKEN: ${{ inputs.telegram_bot_token }}
+        CHAT: ${{ inputs.telegram_chat_id }}
+      run: |
+        URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        jq -n --arg c "$CHAT" --arg t "⚠️ Ha fallado «$GITHUB_WORKFLOW»: $URL" '{chat_id: $c, text: $t}' \
+          | curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+              -H "Content-Type: application/json" -d @- > /dev/null

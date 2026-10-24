@@ -1,0 +1,115 @@
+/* Cabecera de pantalla (título grande) y estados compartidos: error, vacío, esqueleto. */
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Barra superior: «‹ Volver» a la izquierda, acciones a la derecha. */
+.barra {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding-right: var(--space-3);
+  margin-left: -4px;
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--text);
+}
+.volver svg {
+  width: 10px;
+  height: 17px;
+}
+.acciones {
+  margin-left: auto;
+}
+
+.fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.separada {
+  margin-bottom: var(--space-6);
+}
+
+.titulos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+/* Contexto encima del título: fecha, mes, módulo… */
+.kicker {
+  font-size: var(--text-sub);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-muted);
+}
+
+.titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-largetitle);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+}
+
+.lateral {
+  flex: none;
+  padding-bottom: var(--space-1);
+  font-size: var(--text-sub);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Texto secundario suelto (antes manuscrito). */
+
+/* Enlace de texto: «Ver análisis →». */
+
+.vacio {
+  margin: 0;
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  font-size: var(--text-sub);
+  line-height: 1.4;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.errorCarga {
+  width: 100%;
+  text-align: left;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  font-size: var(--text-sub);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--danger);
+}
+
+.esqueleto {
+  background: var(--fill);
+  animation: pulso 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes pulso {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}

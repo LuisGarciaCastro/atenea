@@ -1,0 +1,271 @@
+.hucha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Selector de mes: pastilla blanca junto al título. */
+.selectorMes {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+}
+
+.flecha {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration-fast) var(--ease);
+}
+.flecha:active {
+  background: var(--fill);
+}
+.flecha:disabled {
+  color: var(--text-faint);
+  opacity: 0.5;
+}
+.flecha svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mes {
+  min-width: 76px;
+  text-align: center;
+  font-size: var(--text-sub);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* La cifra del mes */
+.cifraBloque {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.etiqueta {
+  font-size: var(--text-sub);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.cifra {
+  font-family: var(--font-display);
+  font-size: var(--text-number);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-number);
+}
+
+.delta {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--positive-soft);
+  color: var(--positive);
+}
+.deltaSube {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* Por categoría: barra apilada + leyenda */
+.categorias {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+
+.barraCategorias {
+  display: flex;
+  gap: 2px;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.barraCategorias i {
+  flex-basis: 0;
+  min-width: 3px;
+}
+
+.leyenda {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.categoria {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+}
+.categoria + .categoria {
+  border-top: 1px solid var(--rule);
+}
+
+.punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.catNombre {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-sub);
+}
+
+.pct {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.catImporte {
+  min-width: 76px;
+  text-align: right;
+  font-size: var(--text-sub);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.analisis {
+  align-self: flex-start;
+  padding-top: var(--space-1);
+  font-size: var(--text-sub);
+  font-weight: 600;
+  color: var(--hucha);
+}
+
+/* Movimientos: lista agrupada */
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.secTitulo {
+  margin: 0;
+  font-size: var(--text-title2);
+  letter-spacing: -0.01em;
+}
+
+.movimientos {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-4);
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+}
+
+.movimiento {
+  width: 100%;
+  text-align: left;
+  transition: opacity var(--duration-fast) var(--ease);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 64px;
+  padding: var(--space-3) 0;
+}
+.movimiento + .movimiento {
+  border-top: 1px solid var(--rule);
+}
+
+/* Inicial de la categoría sobre su color suave. */
+.badge {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color, var(--text-muted)) 14%, var(--card-bg));
+  color: var(--color, var(--text-muted));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-headline);
+  font-weight: 700;
+  flex: none;
+}
+.badgePendiente {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+.movTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.movTitulo {
+  font-size: var(--text-sub);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movSub {
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+}
+
+.movImporte {
+  font-size: var(--text-sub);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.movimiento:active {
+  opacity: 0.7;
+}
+
+.chevron {
+  display: flex;
+  flex: none;
+  color: var(--text-faint);
+}
+.chevron svg {
+  width: 7px;
+  height: 12px;
+}
+
+/* iPhone: una columna. iPad: el resumen a la izquierda y los movimientos a la derecha. */
+.columnas,
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+@container pagina (min-width: 720px) {
+  .columnas {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+}
+.columna.seccion {
+  gap: var(--space-3);
+}

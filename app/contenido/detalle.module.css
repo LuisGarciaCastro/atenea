@@ -1,0 +1,67 @@
+.tagWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tagThumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex: none;
+}
+.tagThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tagPeso {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.quote {
+  font-family: var(--font-read);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.videoRow {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+}
+.videoThumb {
+  width: 96px;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  flex: none;
+  background: var(--fill);
+}
+.videoThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.videoInfo {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+}
+.videoInfo b {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.videoInfo span {
+  font-size: 12px;
+  color: var(--text-muted);
+}

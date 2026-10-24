@@ -1,0 +1,57 @@
+/* Nota: tarjeta blanca para leer (highlights, guardados). */
+
+.papelito {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-align: left;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: inset 0 0 0 2px transparent;
+  transition:
+    opacity var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+
+.activo {
+  box-shadow: inset 0 0 0 2px var(--ideas);
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+a.papelito:active,
+button.papelito:active {
+  opacity: 0.8;
+}
+
+.kicker {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--ideas);
+}
+
+.titulo {
+  font-family: var(--font-read);
+  font-size: 19px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.extracto {
+  font-size: var(--text-sub);
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+.pie {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}

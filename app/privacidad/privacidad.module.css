@@ -1,0 +1,39 @@
+.updated {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0 20px;
+}
+
+.section {
+  margin-bottom: 14px;
+}
+
+.section h2 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.section p,
+.section li {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.section p + p {
+  margin-top: 8px;
+}
+
+.section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.section li + li {
+  margin-top: 4px;
+}
+
+.section a {
+  color: var(--accent);
+}

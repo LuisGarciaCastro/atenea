@@ -1,0 +1,85 @@
+name: Finanzas — categorizar gastos pendientes
+on:
+  schedule:
+    - cron: "31 * * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: finanzas-categorizar
+
+jobs:
+  categorizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      # Sin pendientes no se arranca a Claude (24 pasadas al día); si la app no responde, falla y avisa.
+      - name: ¿Hay gastos pendientes?
+        id: pendientes
+        env:
+          SECRETO: ${{ secrets.FINANZAS_CRON_SECRET }}
+          APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
+        # `shell: bash` activa pipefail: si curl falla, el paso falla (y avisa) en vez de seguir con N vacío.
+        shell: bash
+        run: |
+          N=$(curl -sfL -H "Authorization: Bearer $SECRETO" "${APP_BASE_URL%/}/api/finanzas/cron/pendientes" | jq '.gastos | length')
+          [[ "$N" =~ ^[0-9]+$ ]] || { echo "Respuesta inesperada de la app"; exit 1; }
+          echo "Pendientes: $N"
+          echo "hay=$([ "$N" -gt 0 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+      - uses: anthropics/claude-code-action@f27be6b65a4652f08a2ba3cff79114829b588967 # v1
+        if: steps.pendientes.outputs.hay == 'true'
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: |
+            --allowedTools "Bash(curl:*)"
+          settings: |
+            {
+              "env": {
+                "FINANZAS_CRON_SECRET": "${{ secrets.FINANZAS_CRON_SECRET }}",
+                "APP_BASE_URL": "${{ secrets.APP_BASE_URL }}",
+                "TELEGRAM_BOT_TOKEN": "${{ secrets.TELEGRAM_BOT_TOKEN }}",
+                "TELEGRAM_CHAT_ID": "${{ secrets.TELEGRAM_CHAT_ID }}"
+              }
+            }
+          prompt: |
+            Eres el agente de categorización horaria de Finanzas del hub personal del usuario.
+
+            1. Ejecuta:
+               curl -s -H "Authorization: Bearer $FINANZAS_CRON_SECRET" \
+                 "${APP_BASE_URL%/}/api/finanzas/cron/pendientes"
+               Devuelve { "gastos": [...] }, cada uno con id, texto_original, fecha.
+               Si la lista está vacía, termina sin hacer nada más (no mandes Telegram).
+
+            2. Para cada gasto pendiente, a partir de texto_original:
+               - Extrae el importe en euros (número, sin símbolo de moneda).
+               - Asigna EXACTAMENTE una categoría de esta lista cerrada: Alimentación,
+                 Restaurantes, Transporte, Ocio, Salud, Hogar, Ropa, Suscripciones, Otros.
+                 Si no encaja claramente en ninguna, usa "Otros".
+               - Redacta una descripción corta (máx. 6 palabras) en español, sin el importe.
+               - Ejecuta:
+                 curl -s -X PATCH -H "Authorization: Bearer $FINANZAS_CRON_SECRET" \
+                   -H "Content-Type: application/json" \
+                   -d '{"importe": <numero>, "categoria": "<categoria>", "descripcion": "<descripcion>"}' \
+                   "${APP_BASE_URL%/}/api/finanzas/cron/<id>"
+
+            3. Si categorizaste al menos un gasto, manda un resumen a Telegram:
+               curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+                 -H "Content-Type: application/json" \
+                 -d '{"chat_id": "'"$TELEGRAM_CHAT_ID"'", "text": "<resumen>"}'
+               El resumen debe listar cada gasto categorizado en esta pasada, una línea por gasto,
+               con el formato exacto: "#<id> · <importe>€ · <categoria> · <descripcion>"
+               y terminar con la línea: "Para corregir uno, responde con #<id> categoría [importe]".
+               No uses reply_markup ni botones, solo texto plano.
+
+      - name: Avisar del fallo
+        if: failure()
+        uses: ./.github/actions/avisar-fallo
+        with:
+          telegram_bot_token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          telegram_chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
